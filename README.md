@@ -23,4 +23,4 @@ Full-stack iOS application with Flask backend.
 4. Run server: `python run.py`
 
 Note:
-Due to privacy and data protection constraints, the original dataset used in the VOCA Health project cannot be publicly shared.
+The original dataset used in the VOCA Health project cannot be publicly shared.
