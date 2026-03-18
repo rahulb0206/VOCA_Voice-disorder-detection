@@ -1,5 +1,5 @@
 # VOCA - Voice Disorder Detection 
-This repository contains the machine learning pipeline developed as part of the VOCA Health project at Carle Illinois College of Medicine. The goal of the project is to assist healthcare professionals in detecting voice disorders using machine learning techniques applied to vocal audio signals.
+This repository contains the machine learning pipeline developed as part of the VOCA Health project. The goal of the project is to assist healthcare professionals in detecting voice disorders using machine learning techniques applied to vocal audio signals.
 
 The system analyzes patient voice recordings and predicts whether the voice pattern indicates a normal or disordered vocal condition, enabling scalable and automated screening support for clinicians.
 
