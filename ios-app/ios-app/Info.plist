@@ -7,7 +7,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 		<key>NSAllowsLocalNetworking</key>
-		<false/>
+		<true/>
 	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
