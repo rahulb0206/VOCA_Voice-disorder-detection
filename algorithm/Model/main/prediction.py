@@ -1,3 +1,6 @@
+# Original development version of the inference class.
+# See src/predict.py for the cleaned implementation with argparse and docstrings.
+
 import librosa
 import numpy as np
 import xgboost as xgb
@@ -84,19 +87,17 @@ class VoiceDisorderPredictor:
 
 
 def main():
-    #paths to model and normalization files
-    model_path = "/Users/rahulbalasubramani/Desktop/VOCA/model/VOCA-Health/algorithm/Model/mel_class/voice_disorder_model.json"
-    mean_std_path = "mean_std_values.npy"  
+    import argparse
+    parser = argparse.ArgumentParser(description="Run VOCA voice disorder inference")
+    parser.add_argument("--audio",     required=True,                  help="Path to audio file")
+    parser.add_argument("--model",     default="voice_disorder_model.json", help="Path to model .json")
+    parser.add_argument("--norm",      default="mean_std_values.npy",  help="Path to mean_std .npy")
+    args = parser.parse_args()
 
-    #Initializing the predictor
-    predictor = VoiceDisorderPredictor(model_path, mean_std_path)
+    predictor = VoiceDisorderPredictor(args.model, args.norm)
 
-    # Input the path to the test audio file
-    test_file = input(r"/Users/rahulbalasubramani/Desktop/VOCA/model/VOCA-Health/algorithm/Model/Perceptual Voice Qualities Database (PVQD)/new_files/D3_F_4.wav ") #test_file
-
-    # Run the prediction
     try:
-        result = predictor.predict(test_file)
+        result = predictor.predict(args.audio)
         print("\n=== Voice Disorder Prediction Results ===")
         print(f"Prediction: {result['prediction']}")
         print(f"Probability of Normal: {result['probability_normal']}%")

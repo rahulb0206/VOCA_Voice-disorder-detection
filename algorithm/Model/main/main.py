@@ -1,3 +1,6 @@
+# Original development version of the training pipeline.
+# See src/train.py for the cleaned implementation with argparse and docstrings.
+
 import os
 import librosa
 import numpy as np
@@ -56,8 +59,10 @@ class VoiceDisorderClassifier:
                 elif file_name.startswith("D_"):
                     disorder_files.append(file_name)
 
-        selected_normal_files = normal_files[:77]
-        selected_disorder_files = disorder_files[:77]
+        # Balance classes dynamically — use min count across both classes
+        n = min(len(normal_files), len(disorder_files))
+        selected_normal_files = normal_files[:n]
+        selected_disorder_files = disorder_files[:n]
 
         original_audio_files, original_labels = [], []
         augmented_audio_files, augmented_labels = [], []
@@ -142,8 +147,12 @@ class VoiceDisorderClassifier:
 
 
 def main():
-    audio_dir = r'/Users/rahulbalasubramani/Desktop/VOCA/model/VOCA-Health/algorithm/Model/mel_class/renamed_audio_files'
-    classifier = VoiceDisorderClassifier(audio_dir)
+    import argparse
+    parser = argparse.ArgumentParser(description="Train VOCA XGBoost classifier")
+    parser.add_argument("--audio_dir", required=True, help="Path to renamed WAV files")
+    args = parser.parse_args()
+
+    classifier = VoiceDisorderClassifier(args.audio_dir)
 
     X_augmented, y_augmented = classifier.load_and_augment_data()
 
@@ -177,7 +186,7 @@ def main():
     dtrain_final = xgb.DMatrix((X_train_val - np.mean(X_train_val, axis=0)) / np.std(X_train_val, axis=0),
                                label=y_train_val)
     final_model = xgb.train(classifier.params, dtrain_final, classifier.num_rounds)
-    final_model.save_model("voice_disorder_model_c10_structured.json")
+    final_model.save_model("voice_disorder_model.json")
 
     test_accuracy, test_f1 = classifier.evaluate_on_test_set(final_model, X_test, y_test, X_train_val)
     print(f"\nTest Set Accuracy: {test_accuracy:.2f}%")

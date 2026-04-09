@@ -1,3 +1,7 @@
+# Experimental multiclass classifier (Normal / D1 / D2 / D3).
+# Kept as a reference for future per-disorder classification work.
+# Requires a feature CSV not included in this repo.
+
 import tensorflow as tf
 import pandas as pd
 import numpy as np

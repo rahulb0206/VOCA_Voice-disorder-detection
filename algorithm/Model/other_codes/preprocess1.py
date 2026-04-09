@@ -1,3 +1,6 @@
+# Original dataset organisation script — renames PVQD audio files using
+# metadata from the Excel sheet. See src/preprocess.py for the cleaned version.
+
 import os
 import shutil
 import pandas as pd

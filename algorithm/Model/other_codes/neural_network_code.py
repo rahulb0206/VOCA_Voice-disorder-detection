@@ -1,3 +1,7 @@
+# Experimental neural network approach using jitter, shimmer, and HNR features.
+# This was the first architecture tried — overfitting on the clinical dataset led
+# to switching to XGBoost with Mel-Spectrogram features. Kept for reference.
+
 import os
 import librosa
 import numpy as np
@@ -43,10 +47,13 @@ def extract_features(y, sr=16000):
     hnr = extract_hnr(y, sr)
     return [jitter, shimmer, hnr]
 
-#folder having audio files
-audio_dir = r'/Users/rahulbalasubramani/Desktop/VOCA/model/VOCA-Health/algorithm/Model/parameters/renamed_audio_files'
+import argparse
+parser = argparse.ArgumentParser(description="Train NN voice disorder classifier (jitter/shimmer/HNR)")
+parser.add_argument("--audio_dir", required=True, help="Path to renamed WAV files")
+args = parser.parse_args()
+audio_dir = args.audio_dir
 
-# Load,label& balance data
+# Load, label & balance data
 normal_files = []
 disorder_files = []
 
@@ -57,9 +64,10 @@ for file_name in os.listdir(audio_dir):
         elif file_name.startswith("D_"):
             disorder_files.append(file_name)
 
-# Use first disorder samples and all normal samples
-selected_normal_files = normal_files[:77]
-selected_disorder_files = disorder_files[:77]
+# Balance classes dynamically
+n = min(len(normal_files), len(disorder_files))
+selected_normal_files = normal_files[:n]
+selected_disorder_files = disorder_files[:n]
 
 audio_data = []
 labels = []
@@ -132,5 +140,5 @@ plt.show()
 
 model.save('voice_disorder_model.h5')
 
-print(f"Selected Normal: {len(selected_normal_files)}, Selected Disorder: {len(selected_disorder_files)}")
-print(f"Data after augmentation: Normal = {len([x for x, y in zip(audio_data, labels) if y == 0])}, Disorder = {len([x for x, y in zip(audio_data, labels) if y == 1])}")
+print(f"Classes loaded — Normal: {len(selected_normal_files)}, Disorder: {len(selected_disorder_files)}")
+print(f"After augmentation — Normal: {len([l for l in labels if l == 0])}, Disorder: {len([l for l in labels if l == 1])}")

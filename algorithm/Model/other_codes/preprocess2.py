@@ -1,3 +1,6 @@
+# Optional audio cleaning — silence trim, noise reduction, volume normalisation.
+# Explored but not used in the final pipeline. See src/preprocess.py clean_audio().
+
 import numpy as np
 import librosa
 import noisereduce as nr
