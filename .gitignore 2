@@ -1,0 +1,72 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+algorithm/bin/
+algorithm/include/
+algorithm/lib/
+algorithm/pyvenv.cfg
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Data files (PVQD cannot be shared publicly) ───────────────────────────────
+data/raw/
+data/processed/
+*.wav
+*.mp3
+*.ogg
+*.m4a
+uploads/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── iOS dead code (recipe app leftover from team project — not VOCA) ─────────
+ios-app/ios-app/Clients/RecipeClient.swift
+ios-app/ios-app/ContentView.swift
+ios-app/ios-app/Models/Recipes.swift
+
+# ── iOS / Xcode ───────────────────────────────────────────────────────────────
+ios-app/ios-app.xcodeproj/xcuserdata/
+ios-app/DerivedData/
+ios-app/*.xcworkspace/xcuserdata/
+*.xccheckout
+*.moved-aside
+ios-app/build/
+
+# ── Model artifacts (keep in repo for inference demo, gitignore large ones) ───
+# Uncomment below if model files grow too large for GitHub:
+# outputs/models/*.json
+# outputs/models/*.npy
+
+# ── Raw training outputs (kept locally, not pushed) ──────────────────────────
+Output/
+
+# ── Local only — not for public repo ─────────────────────────────────────────
+INTERVIEW_PREP.md
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+*.tmp
+.env

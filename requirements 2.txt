@@ -1,0 +1,31 @@
+# VOCA — Voice Disorder Detection
+# Core ML pipeline dependencies
+# Install with: pip install -r requirements.txt
+
+# Audio processing
+librosa==0.10.2
+soundfile==0.12.1
+
+# Feature processing
+numpy==1.26.2
+opencv-python==4.9.0.80
+
+# Machine learning
+xgboost==2.1.2
+scikit-learn==1.5.2
+
+# Visualisation
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Data handling
+pandas==2.1.3
+openpyxl==3.1.2         # required for reading dataset.xlsx in preprocess.py
+
+# Optional — only needed for clean_audio() in preprocess.py
+# noisereduce==3.0.2
+# pydub==0.25.1
+
+# Backend (Flask server)
+flask==3.0.0
+werkzeug==3.0.1
