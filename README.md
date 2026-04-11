@@ -1,7 +1,5 @@
 # VOCA — Voice Disorder Detection
 
-> XGBoost classifier on Mel-Spectrograms that detects vocal disorders from raw audio — **AUC-ROC 0.86** across cross-validation, **87.8% CV accuracy**.
-
 ![Python](https://img.shields.io/badge/Python-3.12-blue?style=flat-square&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Domain](https://img.shields.io/badge/Domain-Healthcare%20AI-red?style=flat-square)
@@ -192,20 +190,6 @@ In clinical screening, lowering the threshold is usually the right call — a fa
 - External validation on a second independent dataset before any clinical deployment
 
 **On concept drift:** Voice disorder presentations change with age and treatment. A model trained on one cohort snapshot needs periodic revalidation as the patient population shifts.
-
----
-
-## What I'd Do Next
-
-1. **Per-disorder classification** — The three disorder types are labelled in the source data. A 4-class model gives clinicians actionable output instead of a binary flag. Binary was the right starting point; disorder-type identification is the obvious next step.
-
-2. **SHAP on the spectrogram features** — With 12,800 input features the model is opaque right now. SHAP would identify which frequency bands and time windows drive the predictions. That's the kind of output a clinician can engage with — "irregular patterns in the 150–400 Hz range" means something; "Disorder: 89% confidence" on its own doesn't.
-
-3. **External validation** — Before quoting these numbers in any clinical context, I'd want to evaluate on an independent dataset. If performance holds on a different cohort, the model is learning something real. If it drops significantly, the Carle-specific patterns are doing too much of the work.
-
-4. **Structured experiment logging from the start** — The early NN runs have no saved metrics. The XGBoost runs have full figure outputs. A 10-line logging function writing parameters and results to a JSON file at every run would have made the whole evolution story much cleaner to document.
-
-5. **Complete the Flask integration** — `algorithm/src/predict.py` is production-ready. The Flask backend already receives audio uploads at `/api/upload-audio` but currently only saves the file — it doesn't run inference. Adding a `/api/predict` endpoint that calls `VoiceDisorderPredictor.predict()` and returns JSON is the missing step to make this end-to-end functional.
 
 ---
 
